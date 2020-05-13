@@ -1,8 +1,9 @@
 
 		var seg=0;
-		var est="ACTIVIDAD";;
+		var est="ACTIVIDAD";
 		min=Number(min);
 		activo=Number(activo);
+		var desc=60-activo;
 		function run() {
 			seg++;
 			if (seg==60) {
@@ -25,8 +26,8 @@
 
       	function ejecutar(num){
       		time=setInterval(run,1000);
-
-      	}
+      		
+		}
 
       
 		function estado(segundo,min,activo){
@@ -40,3 +41,5 @@
 			}
 			return str;
 		}
+
+		
