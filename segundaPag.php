@@ -7,13 +7,15 @@ $datos=$_GET['datos'];
 echo "<script>
 		
 		var nombre='".$nombre."';
-		var min='".$min."';
+		var total='".$min."';
 		var activo='".$activo."';
 		
  	  </script>";
 
 
 ?>
+
+
 <html>
 	<div class="p-3 mb-2 bg-info text-white">
 	<head>
@@ -22,13 +24,36 @@ echo "<script>
 		<br>
 		<script src="funciones.js"></script>
 		<script>
+	
+	function run(){
+		total=Number(total);
+		activo=Number(activo);
+		min=0;
+		seg=0;
+		// esta funcion se va a estar ejecutando repetitivamente cada segundo hasta que culminen los minutos a repetir el usuario y en
+		// cada iteracion hacer una validacion del estado en la cual se debe encontrar el usuario en su actividad
+		stop=setInterval(validarEstado,1000,activo);
+		setTimeout(function(){ clearInterval(stop);document.getElementById('sol').innerHTML='FINALIZO EJERCICIO';},(60000*(total)+1000));
+		//---------------------------------------------
+		// Se ejecuta la funcion minutero cada minuto consecutivamente,al mismo tiempo se programa la detencion de la misma, determinando el tiempo dado la cantidad de minutos que el usuario desea repetir esta funcion
+		minutero();
+		if (total>1){
+			time1=setInterval(minutero,60000);
+			// se programa la detencion de los minutos transcurridos el total de minutos ingresados por el usuario
+			setTimeout(function(){ clearInterval(time1);},(60000*(total-1)));
+		}
+		
+	}
 
+		
 			
 
 		</script>
 		<title>TEMPORIZADOR PROGRMADO</title>
+		
+		
 	</head>
-	<body onload="ejecutar()" style="background-color:rgb(23, 162, 184);">
+	<body onload="run()" style="background-color:rgb(23, 162, 184);">
 		
 		<font size="50" color= "454747" face= "ALGERIAN">
 			<center>ENTRENAMIENTO <br><?php echo $nombre;?> <center>
